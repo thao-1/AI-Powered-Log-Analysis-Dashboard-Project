@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-analysis-dashboard
+spec:
+  replicas: 2 # Start with 2 replicas, can be adjusted
+  selector:
+    matchLabels:
+      app: log-analysis-dashboard
+  template:
+    metadata:
+      labels:
+        app: log-analysis-dashboard
+    spec:
+      containers:
+      - name: log-analysis-dashboard-container
+        # Replace this with the actual image tag you pushed to GCR or Artifact Registry
+        image: "[YOUR_IMAGE_TAG_FROM_GCR_OR_ARTIFACT_REGISTRY]"
+        ports:
+        - containerPort: 8050 # Port the application listens on (from Dockerfile EXPOSE)
+        # Optional: Define resource requests and limits for better scheduling and stability
+        # resources:
+        #   requests:
+        #     memory: "256Mi"
+        #     cpu: "250m" # 0.25 CPU core
+        #   limits:
+        #     memory: "512Mi"
+        #     cpu: "500m" # 0.5 CPU core
